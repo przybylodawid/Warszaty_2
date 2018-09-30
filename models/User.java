@@ -144,4 +144,27 @@ public class User {
             this.id = 0; // dlaczego?
         }
     }
+    public static final String getAllUsersByGroupIdQuery ="SELECT * from users WHERE user_group_id = ?;";
+    public static User[] getAllUsersByGroupId(Connection conn, int id) throws SQLException {
+        User[] users = new User[0];
+
+        PreparedStatement preparedStatement = conn.prepareStatement(getAllUsersByGroupIdQuery);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            User userfromdb = new User();
+            userfromdb.id = resultSet.getInt("id");
+            userfromdb.username = resultSet.getString("username");
+            userfromdb.email = resultSet.getString("email");
+            userfromdb.password = resultSet.getString("password");
+            users = ArrayUtils.add(users, userfromdb);
+        }
+
+
+
+
+        return users;
+    }
+
 }

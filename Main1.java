@@ -91,6 +91,23 @@ public class Main1 {
 //                System.out.println(recordInSolution);
 //            }
 
+//                Solution[] solucje = Solution.getAllSolutionByUserId(conn, 1);
+//                for (Solution recordInSolution: solucje) {
+//                    System.out.println(recordInSolution);
+//                }
+
+//                Solution[] solucje = Solution.getAllSolutionsByExerciseId(conn, 1);
+//                for (Solution recordInSolution: solucje) {
+//                    System.out.println(recordInSolution);
+//                }
+
+//            User[] users = User.getAllUsersByGroupId(conn, 2);
+//            for (User recordInUser:users){
+//                System.out.println(recordInUser);
+//            }
+
+
+
             // MODYFIKACJA ISTNIEJACEGO USERA
 
 
@@ -137,8 +154,8 @@ public class Main1 {
 //            Group grupa =  Group.getGroupById(conn, 1);
 //            grupa.deleteGroupById(conn);
 
-            Solution solution = Solution.getSolutionById(conn, 4);
-            solution.deleteSolutionById(conn);
+//            Solution solution = Solution.getSolutionById(conn, 4);
+//            solution.deleteSolutionById(conn);
 
 
         } catch (SQLException e) {

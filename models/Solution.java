@@ -159,7 +159,7 @@ public class Solution {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()){
-            // to samo co przedtem, ale wywołane konstruktorem dla praktyki
+
             Solution solutionFromDb = new Solution();
             solutionFromDb.id = resultSet.getInt("id");
             solutionFromDb.description = resultSet.getString("description");
@@ -181,5 +181,49 @@ public class Solution {
         preparedStatement.setInt(1, this.id);
         preparedStatement.executeUpdate();
         this.id = 0; // << gdybyśmy chcieli zmodyfikować obiekt i zapisać go ponownie w bazie danych
+    }
+
+    public static final String getAllSolutionsByUserIdQuery = "SELECT * from solution Where user_id = ?;";
+    public static Solution[] getAllSolutionByUserId(Connection conn, int id) throws SQLException {
+        Solution[] solutions = new Solution[0];
+
+        PreparedStatement preparedStatement = conn.prepareStatement(getAllSolutionsByUserIdQuery);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()){
+
+            Solution solutionFromDb = new Solution();
+            solutionFromDb.id = resultSet.getInt("id");
+            solutionFromDb.description = resultSet.getString("description");
+            solutionFromDb.created = resultSet.getString("created");
+            solutionFromDb.updated = resultSet.getString("updated");
+            solutionFromDb.exercise_id = resultSet.getInt("exercise_id");
+            solutionFromDb.user_id = resultSet.getInt("user_id");
+            solutions = ArrayUtils.add(solutions, solutionFromDb);
+
+        }
+        return solutions;
+    }
+    public static final String getAllSolutionsByExerciseId ="SELECT * FROM solution WHERE exercise_id = ? ORDER BY created DESC;";
+    public static Solution[] getAllSolutionsByExerciseId(Connection conn, int id) throws SQLException {
+        Solution[] solutions =  new Solution[0];
+        PreparedStatement preparedStatement = conn.prepareStatement(getAllSolutionsByExerciseId);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()){
+            Solution solutionFromDb = new Solution();
+            solutionFromDb.id = resultSet.getInt("id");
+            solutionFromDb.description = resultSet.getString("description");
+            solutionFromDb.created = resultSet.getString("created");
+            solutionFromDb.updated = resultSet.getString("updated");
+            solutionFromDb.exercise_id = resultSet.getInt("exercise_id");
+            solutionFromDb.user_id = resultSet.getInt("user_id");
+            solutions = ArrayUtils.add(solutions, solutionFromDb);
+
+        }
+        return solutions;
+
     }
 }
